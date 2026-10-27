@@ -21,8 +21,23 @@
 }
 
 @layer base {
+  :root[data-theme="dark"] {
+    --color-paper: #121816;
+    --color-surface: #1a211f;
+    --color-ink: #e6ece9;
+    --color-muted: #9ca9a5;
+    --color-line: #2c3532;
+    --color-heart: #ec6a88;
+    --color-heart-soft: #3a1e26;
+    --color-on-heart: #1a0c10;
+    --color-moss: #7db892;
+    --color-moss-soft: #1d3024;
+    --color-amber: #dda45e;
+    --color-amber-soft: #35291a;
+    color-scheme: dark;
+  }
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
       --color-paper: #121816;
       --color-surface: #1a211f;
       --color-ink: #e6ece9;
@@ -37,6 +52,9 @@
       --color-amber-soft: #35291a;
       color-scheme: dark;
     }
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
   }
 
   body {
