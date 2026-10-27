@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/* Hjerterom tokens. Utilities: bg-paper, text-ink, text-heart, font-display, etc. */
+@theme {
+  --color-paper: #eef1ef;
+  --color-surface: #ffffff;
+  --color-ink: #1b2321;
+  --color-muted: #566360;
+  --color-line: #d3dad7;
+  --color-heart: #af2347;
+  --color-heart-soft: #f6e3e8;
+  --color-on-heart: #ffffff;
+  --color-moss: #356447;
+  --color-moss-soft: #e1eee5;
+  --color-amber: #9a5c14;
+  --color-amber-soft: #f5ead9;
+
+  --font-display: var(--font-bricolage), "Avenir Next", system-ui, sans-serif;
+  --font-sans: var(--font-atkinson), "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, Menlo, monospace;
+}
+
+@layer base {
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-paper: #121816;
+      --color-surface: #1a211f;
+      --color-ink: #e6ece9;
+      --color-muted: #9ca9a5;
+      --color-line: #2c3532;
+      --color-heart: #ec6a88;
+      --color-heart-soft: #3a1e26;
+      --color-on-heart: #1a0c10;
+      --color-moss: #7db892;
+      --color-moss-soft: #1d3024;
+      --color-amber: #dda45e;
+      --color-amber-soft: #35291a;
+      color-scheme: dark;
+    }
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-heart);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: 9999px;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+    font-size: 0.92rem;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .btn:hover { border-color: var(--color-ink); }
+  .btn-primary {
+    background: var(--color-heart);
+    border-color: var(--color-heart);
+    color: var(--color-on-heart);
+  }
+  .btn-primary:hover { filter: brightness(1.07); border-color: var(--color-heart); }
+  .btn-sm { padding: 0.3rem 0.7rem; font-size: 0.82rem; }
+  .btn-on { background: var(--color-ink); color: var(--color-paper); border-color: var(--color-ink); }
+  .field {
+    width: 100%;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.75rem;
+  }
+}
