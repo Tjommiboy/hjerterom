@@ -39,6 +39,8 @@ export async function sendRequest(_prev: RequestState, form: FormData): Promise<
 
   try {
     await writeClient.create({
+      // IDs under a "requests." path are hidden from unauthenticated reads of the public dataset
+      _id: `requests.${crypto.randomUUID()}`,
       _type: "request",
       type,
       ...(itemId ? { item: { _type: "reference", _ref: itemId, _weak: true } } : {}),
