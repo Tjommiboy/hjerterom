@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // This folder is the project root (there is another package-lock.json in the home folder).
+  outputFileTracingRoot: process.cwd(),
   images: {
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
   },

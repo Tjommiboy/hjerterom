@@ -5,7 +5,7 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true,
+  useCdn: process.env.NODE_ENV === "production",
 });
 
 /**
@@ -21,5 +21,7 @@ export async function sanityFetch<T>({
   params?: QueryParams;
   tags: string[];
 }): Promise<T> {
-  return client.fetch<T>(query, params, { next: { revalidate: 60, tags } });
+  // In development, always fetch fresh content so Studio edits show on the next refresh.
+  const revalidate = process.env.NODE_ENV === "development" ? 0 : 60;
+  return client.fetch<T>(query, params, { next: { revalidate, tags } });
 }

@@ -17,7 +17,26 @@ export const structure: StructureResolver = (S) =>
         .title("Alle forespørsler")
         .child(S.documentTypeList("request").defaultOrdering([{ field: "createdAt", direction: "desc" }])),
       S.divider(),
-      S.documentTypeListItem("post").title("Nyheter og arrangementer"),
+      S.listItem()
+        .title("Kommer (arrangementer)")
+        .child(
+          S.documentList()
+            .title("Kommer (arrangementer)")
+            .schemaType("post")
+            .filter('_type == "post" && kind == "arrangement"')
+            .defaultOrdering([{ field: "eventDate", direction: "desc" }])
+            .initialValueTemplates([S.initialValueTemplateItem("post-arrangement")]),
+        ),
+      S.listItem()
+        .title("Nytt fra butikken (nyheter)")
+        .child(
+          S.documentList()
+            .title("Nytt fra butikken (nyheter)")
+            .schemaType("post")
+            .filter('_type == "post" && kind != "arrangement"')
+            .defaultOrdering([{ field: "publishedAt", direction: "desc" }])
+            .initialValueTemplates([S.initialValueTemplateItem("post-nyhet")]),
+        ),
       S.documentTypeListItem("item").title("Varer"),
       S.divider(),
       S.listItem()

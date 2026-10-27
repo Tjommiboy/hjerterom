@@ -22,6 +22,7 @@ export const request = defineType({
     defineField({ name: "item", title: "Vare", type: "reference", to: [{ type: "item" }], weak: true, readOnly: true }),
     defineField({ name: "name", title: "Navn", type: "string", readOnly: true }),
     defineField({ name: "phone", title: "Telefon", type: "string", readOnly: true }),
+    defineField({ name: "email", title: "E-post", type: "string", readOnly: true }),
     defineField({ name: "note", title: "Melding", type: "text", rows: 4, readOnly: true }),
     defineField({ name: "createdAt", title: "Sendt", type: "datetime", readOnly: true }),
     defineField({

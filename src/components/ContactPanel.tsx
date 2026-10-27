@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { mapsLink } from "@/lib/site";
 import type { SiteSettings } from "@/sanity/types";
 import { Empty } from "./Posts";
 import { RequestDialog } from "./RequestDialog";
@@ -10,7 +11,7 @@ export function ContactPanel({ settings }: { settings: SiteSettings | null }) {
   const [key, setKey] = useState(0);
   const s = settings ?? {};
   const rows: [string, string, string?][] = [
-    ["Adresse", s.address ?? ""],
+    ["Adresse", s.address ?? "", s.address ? mapsLink(s.address) : undefined],
     ["Telefon", s.phone ?? "", s.phone ? `tel:${s.phone.replace(/\s/g, "")}` : undefined],
     ["E-post", s.email ?? "", s.email ? `mailto:${s.email}` : undefined],
     ["Vipps", s.vipps ?? ""],
@@ -24,7 +25,13 @@ export function ContactPanel({ settings }: { settings: SiteSettings | null }) {
           {rows.map(([k, v, href]) => (
             <div key={k} className="grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-3 border-b border-line py-3.5">
               <dt className="label">{k}</dt>
-              <dd className="text-[1.08rem] break-words">{href ? <a href={href} className="underline-offset-4 hover:underline">{v}</a> : v}</dd>
+              <dd className="text-[1.08rem] break-words">{href ? (
+                  <a href={href} className="underline-offset-4 hover:underline" {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+                    {v}
+                  </a>
+                ) : (
+                  v
+                )}</dd>
             </div>
           ))}
         </dl>

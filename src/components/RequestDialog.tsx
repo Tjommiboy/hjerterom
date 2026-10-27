@@ -92,12 +92,16 @@ export function RequestDialog({ open, type, item, vipps, onClose }: Props) {
               </label>
             </div>
             <label className="grid gap-1.5 text-sm font-bold">
+              {type === "melding" ? "E-post (valgfritt, hvis du vil ha svar på e-post)" : "E-post (valgfritt)"}
+              <input name="email" type="email" autoComplete="email" inputMode="email" className="field py-3 font-normal sm:py-2.5" />
+            </label>
+            <label className="grid gap-1.5 text-sm font-bold">
               {type === "melding" ? "Melding" : "Kommentar (valgfritt)"}
               <textarea name="note" rows={4} required={type === "melding"} className="field py-3 font-normal sm:py-2.5" />
             </label>
             {siteKey && <div className="cf-turnstile" data-sitekey={siteKey} />}
             <p className="text-xs text-muted">
-              Vi bruker navn og telefonnummer bare til å svare deg, og sletter forespørselen når saken er avsluttet.
+              Vi bruker kontaktinfoen din bare til å svare deg, og sletter forespørselen når saken er avsluttet.
             </p>
             {state.status === "error" && (
               <p role="alert" className="text-sm text-heart">

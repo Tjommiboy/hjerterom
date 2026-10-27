@@ -6,13 +6,13 @@ export const SETTINGS_QUERY = defineQuery(`*[_type == "siteSettings"][0]{
 
 export const UPCOMING_EVENTS_QUERY = defineQuery(`*[_type == "post" && kind == "arrangement" && eventDate >= $today]
   | order(eventDate asc, eventTime asc){
-  _id, kind, title, body, eventDate, eventTime, place, image, publishedAt
+  _id, kind, title, body, eventDate, eventTime, place, image, "publishedAt": coalesce(publishedAt, _createdAt)
 }`);
 
-export const NEWS_QUERY = defineQuery(`*[_type == "post" && kind == "nyhet"] | order(publishedAt desc)[0...20]{
-  _id, kind, title, body, image, publishedAt
+export const NEWS_QUERY = defineQuery(`*[_type == "post" && kind == "nyhet"] | order(coalesce(publishedAt, _createdAt) desc)[0...20]{
+  _id, kind, title, body, image, "publishedAt": coalesce(publishedAt, _createdAt)
 }`);
 
 export const ITEMS_QUERY = defineQuery(`*[_type == "item"] | order(publishedAt desc){
-  _id, title, description, price, category, condition, status, buyMode, image, publishedAt
+  _id, title, description, price, category, condition, status, buyMode, image, "publishedAt": coalesce(publishedAt, _createdAt)
 }`);
