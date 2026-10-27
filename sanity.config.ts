@@ -18,7 +18,7 @@ export default defineConfig({
     // Butikkinfo is a single document: hide it from "create new"
     templates: (templates) => [
       ...templates.filter((t) => t.schemaType !== "siteSettings" && t.schemaType !== "post"),
-      { id: "post-arrangement", title: "Arrangement (Kommer)", schemaType: "post", value: () => ({ kind: "arrangement", place: "I butikken", publishedAt: new Date().toISOString() }) },
+      { id: "post-arrangement", title: "Arrangement (Events)", schemaType: "post", value: () => ({ kind: "arrangement", place: "I butikken", publishedAt: new Date().toISOString() }) },
       { id: "post-nyhet", title: "Nyhet (Nytt fra butikken)", schemaType: "post", value: () => ({ kind: "nyhet", publishedAt: new Date().toISOString() }) },
     ],
   },

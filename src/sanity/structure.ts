@@ -18,10 +18,10 @@ export const structure: StructureResolver = (S) =>
         .child(S.documentTypeList("request").defaultOrdering([{ field: "createdAt", direction: "desc" }])),
       S.divider(),
       S.listItem()
-        .title("Kommer (arrangementer)")
+        .title("Events (arrangementer)")
         .child(
           S.documentList()
-            .title("Kommer (arrangementer)")
+            .title("Events (arrangementer)")
             .schemaType("post")
             .filter('_type == "post" && kind == "arrangement"')
             .defaultOrdering([{ field: "eventDate", direction: "desc" }])

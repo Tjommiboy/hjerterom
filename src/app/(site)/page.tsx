@@ -34,7 +34,7 @@ export default async function HomePage() {
       </section>
 
       <section>
-        <h2 className="mb-5 text-[clamp(1.5rem,3vw,2rem)] font-bold">Kommer</h2>
+        <h2 className="mb-5 text-[clamp(1.5rem,3vw,2rem)] font-bold">Events</h2>
         {events.length ? (
           <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-4">
             {events.map((p) => (
