@@ -35,10 +35,12 @@ export function RequestDialog({ open, type, item, vipps, onClose }: Props) {
       ref={ref}
       onClose={onClose}
       onClick={(e) => e.target === ref.current && onClose()}
-      className="m-auto w-[min(100%-2rem,34rem)] rounded-2xl bg-surface p-0 text-ink backdrop:bg-black/50"
+      className="mx-0 mt-auto mb-0 max-h-[92dvh] w-full max-w-none overflow-y-auto rounded-t-2xl bg-surface p-0 text-ink backdrop:bg-black/50 sm:m-auto sm:max-h-[90dvh] sm:w-[min(100%-2rem,34rem)] sm:rounded-2xl"
     >
       {siteKey && <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />}
-      <div className="grid gap-4 p-6">
+      <div className="grid gap-4 px-4 pt-2.5 pb-[max(1.75rem,env(safe-area-inset-bottom))] sm:p-6">
+        {/* Grab handle: phones show the dialog as a bottom sheet */}
+        <span aria-hidden="true" className="mx-auto h-1 w-10 rounded-full bg-line sm:hidden" />
         <h2 className="text-2xl font-bold">{title}</h2>
         {item && (
           <p className="text-muted">
@@ -82,16 +84,16 @@ export function RequestDialog({ open, type, item, vipps, onClose }: Props) {
             <div className="grid gap-3 sm:grid-cols-2">
               <label className="grid gap-1.5 text-sm font-bold">
                 Navn
-                <input name="name" required autoComplete="name" className="field font-normal" />
+                <input name="name" required autoComplete="name" className="field py-3 font-normal sm:py-2.5" />
               </label>
               <label className="grid gap-1.5 text-sm font-bold">
                 Telefon
-                <input name="phone" type="tel" required autoComplete="tel" inputMode="tel" className="field font-normal" />
+                <input name="phone" type="tel" required autoComplete="tel" inputMode="tel" className="field py-3 font-normal sm:py-2.5" />
               </label>
             </div>
             <label className="grid gap-1.5 text-sm font-bold">
               {type === "melding" ? "Melding" : "Kommentar (valgfritt)"}
-              <textarea name="note" rows={4} required={type === "melding"} className="field font-normal" />
+              <textarea name="note" rows={4} required={type === "melding"} className="field py-3 font-normal sm:py-2.5" />
             </label>
             {siteKey && <div className="cf-turnstile" data-sitekey={siteKey} />}
             <p className="text-xs text-muted">
@@ -102,11 +104,11 @@ export function RequestDialog({ open, type, item, vipps, onClose }: Props) {
                 {state.message}
               </p>
             )}
-            <div className="flex flex-wrap justify-end gap-2">
-              <button type="button" className="btn border-transparent bg-transparent" onClick={onClose}>
+            <div className="flex flex-col-reverse gap-2 sm:flex-row sm:flex-wrap sm:justify-end">
+              <button type="button" className="btn justify-center border-transparent bg-transparent" onClick={onClose}>
                 Avbryt
               </button>
-              <button type="submit" className="btn btn-primary" disabled={pending}>
+              <button type="submit" className="btn btn-primary justify-center py-3 sm:py-2" disabled={pending}>
                 {pending ? "Sender…" : type === "melding" ? "Send melding" : "Send forespørsel"}
               </button>
             </div>
