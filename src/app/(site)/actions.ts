@@ -45,6 +45,9 @@ export async function sendRequest(_prev: RequestState, form: FormData): Promise<
   try {
     if (itemId) item = await writeClient.fetch(`*[_type == "item" && _id == $id][0]{title, price}`, { id: itemId });
     const doc = await writeClient.create({
+      // A dot in the ID makes the document private: the free Sanity plan only has public
+      // datasets, and IDs under "requests." can only be read with a token or a Studio login.
+      _id: `requests.${crypto.randomUUID()}`,
       _type: "request",
       type,
       ...(itemId ? { item: { _type: "reference", _ref: itemId, _weak: true } } : {}),
