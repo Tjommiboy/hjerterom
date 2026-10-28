@@ -11,11 +11,11 @@ const NAV = [
   { href: "/kontakt", label: "Kontakt" },
 ];
 
+/** Hjerterom mark: a heart with a four-pane window in the upper right ("hjerte-rom"). Panes are see-through. */
 export function Heart({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 26 26" aria-hidden="true" className={className}>
-      <path d="M13 22.5 4.2 13.9A5.3 5.3 0 0 1 13 7.2a5.3 5.3 0 0 1 8.8 6.7Z" fill="var(--color-heart)" />
-      <rect x="9.5" y="12" width="7" height="6" rx="1" fill="var(--color-surface)" />
+    <svg viewBox="0 0 64 64" aria-hidden="true" className={className}>
+      <path fillRule="evenodd" fill="var(--color-heart)" d="M32 56C14 44 4 33 4 21C4 11.5 11 5 19.5 5C25.5 5 29.8 8.4 32 13C34.2 8.4 38.5 5 44.5 5C53 5 60 11.5 60 21C60 33 50 44 32 56ZM37 13h5a1 1 0 0 1 1 1v5a1 1 0 0 1 -1 1h-5a1 1 0 0 1 -1 -1v-5a1 1 0 0 1 1 -1ZM46 13h5a1 1 0 0 1 1 1v5a1 1 0 0 1 -1 1h-5a1 1 0 0 1 -1 -1v-5a1 1 0 0 1 1 -1ZM37 22h5a1 1 0 0 1 1 1v5a1 1 0 0 1 -1 1h-5a1 1 0 0 1 -1 -1v-5a1 1 0 0 1 1 -1ZM46 22h5a1 1 0 0 1 1 1v5a1 1 0 0 1 -1 1h-5a1 1 0 0 1 -1 -1v-5a1 1 0 0 1 1 -1Z" />
     </svg>
   );
 }
@@ -26,7 +26,7 @@ export function Header() {
     <header className="sticky top-0 z-10 border-b border-line bg-surface">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3">
         <Link href="/" className="flex items-center gap-2 font-display text-2xl font-extrabold tracking-tight" aria-label="Hjerterom, forside">
-          <Heart className="h-[26px] w-[26px]" />
+          <Heart className="h-[28px] w-[28px]" />
           Hjerterom
         </Link>
         <nav className="ml-auto flex flex-wrap gap-1">
