@@ -116,3 +116,18 @@
     padding: 0.6rem 0.75rem;
   }
 }
+
+/* The logo heart beats: a "lub-dub" double pulse, then a short rest. Still for people who prefer less motion. */
+@keyframes heartbeat {
+  0%, 28%, 70%, 100% { transform: scale(1); }
+  14% { transform: scale(1.12); }
+  42% { transform: scale(1.08); }
+}
+.heartbeat {
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .heartbeat {
+    animation: heartbeat 1.4s ease-in-out infinite;
+  }
+}

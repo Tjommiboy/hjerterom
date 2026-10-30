@@ -26,7 +26,7 @@ export function Header() {
     <header className="sticky top-0 z-10 border-b border-line bg-surface">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3">
         <Link href="/" className="flex items-center gap-2 font-display text-2xl font-extrabold tracking-tight" aria-label="Hjerterom, forside">
-          <Heart className="h-[28px] w-[28px]" />
+          <Heart className="heartbeat h-[28px] w-[28px]" />
           Hjerterom
         </Link>
         <nav className="ml-auto flex flex-wrap gap-1">
