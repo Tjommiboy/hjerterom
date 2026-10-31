@@ -1,32 +1,54 @@
 import Image from "next/image";
+import Link from "next/link";
 import { dateParts, longDate, shortStamp } from "@/lib/format";
 import { urlFor } from "@/sanity/image";
 import type { Post } from "@/sanity/types";
 
-export function EventCard({ post }: { post: Post }) {
-  const { day, month } = dateParts(post.eventDate!);
-  const meta = [longDate(post.eventDate!), post.eventTime && `kl. ${post.eventTime}`, post.place].filter(Boolean).join(" · ");
+/** The red date block used on event cards and the event page. */
+export function DateBadge({ date, large = false }: { date: string; large?: boolean }) {
+  const { day, month } = dateParts(date);
   return (
-    <article className="grid grid-cols-[auto_minmax(0,1fr)] gap-4 rounded-[10px] border border-line bg-surface p-4">
-      <div aria-hidden="true" className="w-16 self-start rounded-lg bg-heart pt-2 pb-2.5 text-center text-on-heart">
-        <span className="block font-display text-3xl leading-none font-extrabold tabular-nums">{day}</span>
-        <span className="mt-1 block font-mono text-[0.7rem] tracking-[0.1em] uppercase">{month}</span>
+    <div
+      aria-hidden="true"
+      className={`self-start rounded-lg bg-heart pt-2 pb-2.5 text-center text-on-heart ${large ? "w-20" : "w-16"}`}
+    >
+      <span className={`block font-display leading-none font-extrabold tabular-nums ${large ? "text-4xl" : "text-3xl"}`}>
+        {day}
+      </span>
+      <span className="mt-1 block font-mono text-[0.7rem] tracking-[0.1em] uppercase">{month}</span>
+    </div>
+  );
+}
+
+export function eventMeta(post: Post) {
+  return [longDate(post.eventDate!), post.eventTime && `kl. ${post.eventTime}`, post.place].filter(Boolean).join(" · ");
+}
+
+/** Event card: the whole card links to the event page. Text is cut after three lines; the picture sits at the bottom. */
+export function EventCard({ post }: { post: Post }) {
+  return (
+    <Link
+      href={`/events/${post.slug}`}
+      className="group flex h-full flex-col gap-4 rounded-[10px] border border-line bg-surface p-4 transition-colors hover:border-heart"
+    >
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-4">
+        <DateBadge date={post.eventDate!} />
+        <div className="min-w-0">
+          <h3 className="text-lg font-bold group-hover:text-heart">{post.title}</h3>
+          <p className="mt-1 font-mono text-[0.82rem] text-muted">{eventMeta(post)}</p>
+          {post.body && <p className="mt-2 line-clamp-3 whitespace-pre-line">{post.body}</p>}
+        </div>
       </div>
-      <div className="min-w-0">
-        <h3 className="text-lg font-bold">{post.title}</h3>
-        <p className="mt-1 font-mono text-[0.82rem] text-muted">{meta}</p>
-        {post.body && <p className="mt-2 whitespace-pre-line">{post.body}</p>}
-        {post.image && (
-          <Image
-            src={urlFor(post.image).width(800).height(450).url()}
-            alt=""
-            width={800}
-            height={450}
-            className="mt-3 aspect-video w-full rounded-lg object-cover"
-          />
-        )}
-      </div>
-    </article>
+      {post.image && (
+        <Image
+          src={urlFor(post.image).width(800).height(450).url()}
+          alt=""
+          width={800}
+          height={450}
+          className="mt-auto aspect-video w-full rounded-lg object-cover"
+        />
+      )}
+    </Link>
   );
 }
 

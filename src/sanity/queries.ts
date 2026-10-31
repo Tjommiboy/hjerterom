@@ -6,7 +6,11 @@ export const SETTINGS_QUERY = defineQuery(`*[_type == "siteSettings"][0]{
 
 export const UPCOMING_EVENTS_QUERY = defineQuery(`*[_type == "post" && kind == "arrangement" && eventDate >= $today]
   | order(eventDate asc, eventTime asc){
-  _id, kind, title, body, eventDate, eventTime, place, image, "publishedAt": coalesce(publishedAt, _createdAt)
+  _id, kind, title, "slug": coalesce(slug.current, _id), body, eventDate, eventTime, place, image, "publishedAt": coalesce(publishedAt, _createdAt)
+}`);
+
+export const EVENT_QUERY = defineQuery(`*[_type == "post" && kind == "arrangement" && (slug.current == $slug || _id == $slug)][0]{
+  _id, kind, title, "slug": coalesce(slug.current, _id), body, eventDate, eventTime, place, image, "publishedAt": coalesce(publishedAt, _createdAt)
 }`);
 
 export const NEWS_QUERY = defineQuery(`*[_type == "post" && kind == "nyhet"] | order(coalesce(publishedAt, _createdAt) desc)[0...20]{

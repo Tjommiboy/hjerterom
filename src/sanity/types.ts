@@ -8,6 +8,8 @@ export type Post = {
   _id: string;
   kind: "nyhet" | "arrangement";
   title: string;
+  /** URL part for /events/<slug>; falls back to the document id when no slug is set. */
+  slug?: string;
   body?: string;
   eventDate?: string; // YYYY-MM-DD
   eventTime?: string;

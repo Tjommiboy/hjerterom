@@ -21,6 +21,27 @@ export const post = defineType({
       validation: (r) => r.required(),
     }),
     defineField({ name: "title", title: "Tittel", type: "string", validation: (r) => r.required() }),
+    defineField({
+      name: "slug",
+      title: "Lenke (URL)",
+      type: "slug",
+      description: "Adressen til arrangementet, f.eks. /events/byttedag-i-mars. Trykk «Generate» etter at du har skrevet tittelen.",
+      options: {
+        source: "title",
+        maxLength: 80,
+        slugify: (input: string) =>
+          input
+            .toLowerCase()
+            .replace(/æ/g, "ae")
+            .replace(/ø/g, "o")
+            .replace(/å/g, "a")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, ""),
+      },
+      hidden: ({ parent }) => parent?.kind !== "arrangement",
+    }),
     defineField({ name: "body", title: "Tekst", type: "text", rows: 6 }),
     defineField({
       name: "eventDate",
